@@ -1,4 +1,5 @@
-var request      = require("request")
+var debug        = require('@google-cloud/debug-agent').start({ allowExpressions:true })
+  , request      = require("request")
   , express      = require("express")
   , morgan       = require("morgan")
   , path         = require("path")
