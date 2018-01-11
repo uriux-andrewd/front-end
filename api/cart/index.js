@@ -161,7 +161,7 @@
 
     // STACKDRIVER-DEMO: incorrectly calculate average price per item
     var averagePrice = req.body.unitPrice / req.body.quantity;
-    if (averagePrice === "NaN")
+    if (isNaN(averagePrice))
     {
         res.status(500);
         res.send('Divide by 0 error\nIn any other language I wouldn\'t have to write a custom exception for this, but here we are ...');
