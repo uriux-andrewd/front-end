@@ -162,8 +162,7 @@
     // STACKDRIVER-DEMO: incorrectly check for 0 quantity
     if (req.body.quantity < 1)
     {
-        console.error("Error! Tried to set quantity < 0")
-
+        console.error((new Error('Tried to set quantity < 0')).stack);
         // TODO: Remove item from cart when quantity is < 1
     }
 
