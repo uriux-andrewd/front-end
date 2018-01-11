@@ -160,9 +160,12 @@
     }
 
     // STACKDRIVER-DEMO: incorrectly check for 0 quantity
-    if (req.body.quantity < 0)
+    if (req.body.quantity < 1)
     {
-        return next(new Error("Can't set quantity to 0"));
+        console.error("Error! Tried to set quantity < 0")
+        return next(new Error("Error! Tried to set quantity < 0"));
+
+        // TODO: Remove item from cart when quantity is < 1
     }
 
 
