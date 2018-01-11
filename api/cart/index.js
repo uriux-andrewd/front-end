@@ -70,6 +70,11 @@
       return;
     }
 
+    // STACKDRIVER-DEMO: Sneaky performance-slowing function
+    if (req.body.id.endsWith('b')) {
+      setTimeout(3000);
+    }
+
     var custId = helpers.getCustomerId(req, app.get("env"));
 
     async.waterfall([
@@ -118,6 +123,12 @@
       next(new Error("Must pass quantity to update"), 400);
       return;
     }
+
+    // STACKDRIVER-DEMO: incorrectly calculate average price per item
+    var averagePrice = req.body.unitPrice / req.body.quantity;
+    console.log("STACKDRIVER-DEMO: average price is: " + averagePrice);
+
+
     var custId = helpers.getCustomerId(req, app.get("env"));
 
     async.waterfall([
