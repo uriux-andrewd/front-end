@@ -163,7 +163,6 @@
     if (req.body.quantity < 1)
     {
         console.error("Error! Tried to set quantity < 0")
-        return next(new Error("Error! Tried to set quantity < 0"));
 
         // TODO: Remove item from cart when quantity is < 1
     }
