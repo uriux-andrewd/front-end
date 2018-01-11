@@ -159,13 +159,12 @@
       return;
     }
 
-    // STACKDRIVER-DEMO: incorrectly calculate average price per item
+    // STACKDRIVER-DEMO: incorrectly check for 0 quantity
     var averagePrice = req.body.unitPrice / req.body.quantity;
-    if (isNaN(averagePrice))
+    if (req.body.quantity < 0)
     {
-        return next(new Error("Divide by 0 error\\nIn any other language I wouldn\\'t have to write a custom exception for this, but here we are ..."));
+        return next(new Error("Can't set quantity to 0"));
     }
-    console.log("STACKDRIVER-DEMO: average price is: " + averagePrice);
 
 
     var custId = helpers.getCustomerId(req, app.get("env"));
