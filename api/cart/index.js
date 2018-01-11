@@ -163,8 +163,7 @@
     var averagePrice = req.body.unitPrice / req.body.quantity;
     if (isNaN(averagePrice))
     {
-        res.status(500);
-        res.send('Divide by 0 error\nIn any other language I wouldn\'t have to write a custom exception for this, but here we are ...');
+        return next(new Error("Divide by 0 error\\nIn any other language I wouldn\\'t have to write a custom exception for this, but here we are ..."));
     }
     console.log("STACKDRIVER-DEMO: average price is: " + averagePrice);
 
