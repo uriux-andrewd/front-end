@@ -160,7 +160,6 @@
     }
 
     // STACKDRIVER-DEMO: incorrectly check for 0 quantity
-    var averagePrice = req.body.unitPrice / req.body.quantity;
     if (req.body.quantity < 0)
     {
         return next(new Error("Can't set quantity to 0"));
