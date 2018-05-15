@@ -154,16 +154,16 @@
       next(new Error("Must pass id of item to update"), 400);
       return;
     }
-    if (req.body.quantity == null) {
+    if (req.body.count == null) {
       next(new Error("Must pass quantity to update"), 400);
       return;
     }
 
-    // STACKDRIVER-DEMO: incorrectly check for 0 quantity
-    if (req.body.quantity < 1)
+    if (req.body.count < 1)
     {
         console.error((new Error('Tried to set quantity < 0')).stack);
-        // TODO: Remove item from cart when quantity is < 1
+        next(new Error("Quantity cannot be < 1"), 400);
+        return;
     }
 
 
