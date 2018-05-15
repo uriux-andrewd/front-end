@@ -154,12 +154,12 @@
       next(new Error("Must pass id of item to update"), 400);
       return;
     }
-    if (req.body.count == null) {
+    if (req.body.quantity == null) {
       next(new Error("Must pass quantity to update"), 400);
       return;
     }
 
-    if (req.body.count < 1)
+    if (req.body.quantity < 1)
     {
         console.error((new Error('Tried to set quantity < 0')).stack);
         next(new Error("Quantity cannot be < 1"), 400);
