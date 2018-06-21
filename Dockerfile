@@ -1,8 +1,15 @@
-FROM node:4-alpine
+FROM node:10-alpine
 ENV NODE_ENV "production"
 ENV PORT 8079
 EXPOSE 8079
 RUN addgroup mygroup && adduser -D -G mygroup myuser && mkdir -p /usr/src/app && chown -R myuser /usr/src/app
+
+RUN apk add --update \
+    python \
+    python-dev \
+    py-pip \
+    build-base \
+  && pip install virtualenv
 
 # Prepare app directory
 WORKDIR /usr/src/app

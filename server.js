@@ -1,4 +1,10 @@
 var debug        = require('@google-cloud/debug-agent').start({ allowExpressions:true })
+  , profile      = require('@google-cloud/profiler').start({
+        serviceContext: {
+            service: 'front-end',
+            version: '1.0.0'
+        }
+    })
   , request      = require("request")
   , express      = require("express")
   , morgan       = require("morgan")
