@@ -161,10 +161,10 @@
       return;
     }
 
-    if (req.body.count < 1)
+    if (req.body.quantity < 1)
     {
         console.error((new Error('Tried to set quantity < 0')).stack);
-        next(new Error("Quantity cannot be < 1"), 400);
+        //next(new Error("Quantity cannot be < 1"), 400);
         return;
     }
 
