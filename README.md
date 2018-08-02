@@ -1,97 +1,62 @@
-[![Build Status](https://travis-ci.org/microservices-demo/front-end.svg?branch=master)](https://travis-ci.org/microservices-demo/front-end)
-[![](https://images.microbadger.com/badges/image/weaveworksdemos/front-end.svg)](http://microbadger.com/images/weaveworksdemos/front-end "Get your own image badge on microbadger.com")
+
+# Overview
+
+This project modifies mtwo/front-end to work on Amazon Xray.
+
+## Customize and Rebuild [mtwo/microservices-demo](https://github.com/mtwo/front-end)
+
+### Rebuild Node Modules
+
+    nvm install 4.8.1
+    npm install  #this may take a while and may break (see troubleshooting)
+
+### Build Image
+
+    docker build -t repo/mtwo-front-end:v1 .
+    docker push repo/mtwo-front-end:v1
+
+### Sock Shop 
+
+[See Sock Shop Docs for more information on Sock Shop](https://microservices-demo.github.io/deployment/kubernetes.html)
+
+#### Update Deployment for Sock Shop
+
+After you've updated your image, you'll need to update your Kubernetes deployment configuration and redeploy. 
+
+    nano complete-demo.yaml
+
+change image path
+
+    spec:
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            name: front-end
+        spec:
+          containers:
+          - name: front-end
+            image: repo/mtwo-front-end:v1
+
+ 
+#### Redeploy Sock Shop
+
+  kubectl apply -f complete-demo.yaml
 
 
-Front-end app
----
-Front-end application written in [Node.js](https://nodejs.org/en/) that puts together all of the microservices under [microservices-demo](https://github.com/microservices-demo/microservices-demo).
 
-# Build
 
-## Dependencies
+###  Troubleshooting
+if you get errors with npm install , do this:
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Version</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><a href="https://docker.com">Docker</a></td>
-      <td>>= 1.12</td>
-    </tr>
-    <tr>
-      <td><a href="https://docs.docker.com/compose/">Docker Compose</a></td>
-      <td>>= 1.8.0</td>
-    </tr>
-    <tr>
-      <td><a href="gnu.org/s/make">Make</a>&nbsp;(optional)</td>
-      <td>>= 4.1</td>
-    </tr>
-  </tbody>
-</table>
+    npm cache clean –force
+    rm ~/.npm ~/.npm-old
+    mkdir -p ~/.npm
 
-## Node
+You may also want to reset your git branch
 
-`npm install`
+    git reset --hard
 
-## Docker
 
-`make test-image`
 
-## Docker Compose
 
-`make up`
-
-# Test
-
-**Make sure that the microservices are up & running**
-
-## Unit & Functional tests:
-
-```
-make test
-```
-
-## End-to-End tests:
-  
-To make sure that the test suite is running against the latest (local) version with your changes, you need to manually build
-the image, run the container and attach it to the proper Docker networks.
-There is a make task that will do all this for you:
-
-```
-make dev
-```
-
-That will also tail the logs of the container to make debugging easy.
-Then you can run the tests with:
-
-```
-make e2e
-```
-
-# Run
-
-## Node
-
-`npm start`
-
-## Docker
-
-`make server`
-
-# Use
-
-## Node
-
-`curl http://localhost:8081`
-
-## Docker Compose
-
-`curl http://localhost:8080`
-
-# Push
-
-`GROUP=weaveworksdemos COMMIT=test ./scripts/push.sh`
